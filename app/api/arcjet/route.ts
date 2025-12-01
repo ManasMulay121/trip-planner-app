@@ -8,9 +8,9 @@ export const aj = arcjet({
     tokenBucket({
       mode: "LIVE", // will block requests. Use "DRY_RUN" to log only
       characteristics: ["userId"], // track requests by a custom user ID
-      refillRate: 5, // refill 5 tokens per interval
-      interval: 86400, // refill every 10 seconds
-      capacity: 40, // bucket maximum capacity of 10 tokens
+      refillRate: 10, // refill 10 tokens per interval
+      interval: 60, // refill every 60 seconds
+      capacity: 50, // bucket maximum capacity of 50 tokens
     }),
   ],
 });
