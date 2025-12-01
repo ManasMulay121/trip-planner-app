@@ -1,15 +1,25 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 
 export function PopularCityList() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   const cards = data.map((card, index) => (
     <Card key={card.src} card={card} index={index} />
   ));
 
   return (
-    <div className="w-full h-full py-20">
+    <div className="w-full h-full py-20" suppressHydrationWarning>
       <h2 className="max-w-7xl pl-4 mx-auto text-xl md:text-3xl font-bold text-neutral-800 dark:text-neutral-200 font-sans">
         Popular Destinations to visit
       </h2>

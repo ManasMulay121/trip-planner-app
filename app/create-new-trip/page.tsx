@@ -1,13 +1,14 @@
 import React from 'react'
 import ChatBox from "./_components/ChatBox";
+import Iternary from './_components/Iternary';
 function CreateNewTrip() {
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-5 p-10'>
-            <div>
+        <div className='h-screen flex gap-5 p-10 overflow-hidden'>
+            <div className='w-full md:w-1/3 flex-shrink-0'>
                 <ChatBox/>
             </div> 
-            <div>
-                
+            <div className='flex-1 overflow-y-auto'>
+                <Iternary />
             </div>
         </div>
     )
