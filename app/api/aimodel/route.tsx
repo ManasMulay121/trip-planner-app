@@ -163,9 +163,16 @@ export async function POST(req:NextRequest) {
   })
   console.log(completion.choices[0].message)
   const message=completion.choices[0].message
-  return NextResponse.json(JSON.parse(message.content ?? ''))
+  let content = message.content ?? '';
+  // Remove markdown code blocks if present
+  if (content.startsWith('```json')) {
+      content = content.replace(/^```json\n/, '').replace(/\n```$/, '');
+  } else if (content.startsWith('```')) {
+      content = content.replace(/^```\n/, '').replace(/\n```$/, '');
+  }
+  return NextResponse.json(JSON.parse(content))
     }
     catch(e) {
-        return NextResponse.json(e);
+        return NextResponse.json({error: e});
     }
 }

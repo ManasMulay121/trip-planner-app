@@ -14,6 +14,7 @@ import { api } from '@/convex/_generated/api'
 import { useUser } from '@clerk/nextjs'
 import { useTripDetail, useUserDetail } from '@/app/provider'
 import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/navigation';
 
 type Message={
     role:string,
@@ -66,7 +67,8 @@ type Iternary={
     activities:Activity[];
 }
 export default function ChatBox() {
-
+    const router = useRouter();
+    const [generatedTripId, setGeneratedTripId] = useState<string | null>(null);
     const [messages, setMessages]=useState<Message[]>([]);
     const [userInput, setUserInput]=useState<string>();
     const [loading,setLoading]=useState(false);
@@ -104,27 +106,32 @@ export default function ChatBox() {
             // avoid adding a duplicate "Preparing your itinerary..." assistant message
             setMessages((prev:Message[])=>{
                 const last = prev[prev.length - 1];
-                if(last?.role === 'assistant' && last?.ui === 'final') {
+                if(last?.role === 'assistant' && last?.ui === 'trip_ready') {
                     // already showing preparing message from previous assistant reply — don't add another
                     return prev;
                 }
                 return [...prev,{
                     role:'assistant',
-                    content: 'Preparing your itinerary...',
-                    ui: 'final'
+                    content: 'Your trip is ready!',
+                    ui: 'trip_ready'
                 }];
             });
-            setTripDetails(result?.data?.trip_plan);
-            if (setTripDetailInfo) {
-                setTripDetailInfo(result?.data?.trip_plan);
-            }
-            const tripId=uuidv4();
-            if(userDetail) {
-                await SaveTripDetail({
-                    tripDetail: result?.data?.trip_plan,
-                    tripId: tripId,
-                    uid: userDetail
-                });
+            if (result?.data?.trip_plan) {
+                setTripDetails(result?.data?.trip_plan);
+                if (setTripDetailInfo) {
+                    setTripDetailInfo(result?.data?.trip_plan);
+                }
+                const tripId=uuidv4();
+                setGeneratedTripId(tripId);
+                if(userDetail) {
+                    await SaveTripDetail({
+                        tripDetail: result?.data?.trip_plan,
+                        tripId: tripId,
+                        uid: userDetail
+                    });
+                }
+            } else {
+                console.error("Trip plan not found in response", result.data);
             }
 
         }
@@ -141,8 +148,11 @@ export default function ChatBox() {
             return <GroupSizeUi onSelectedOption={(v:string)=>{setUserInput(v); onSend()}}/>
         } else if(ui=='tripDuration') {
             return <SelectDays onSelectedOption={(v:string)=>{setUserInput(v); onSend()}}/>
+        } else if(ui=='trip_ready') {
+            return <FinalUi viewTrip={() => router.push('/view-trip/'+generatedTripId)} disable={!tripDetail}/>
         } else if(ui=='final') {
-            return <FinalUi viewTrip={() => console.log} disable={!tripDetail}/>
+            if (tripDetail) return null;
+            return <FinalUi viewTrip={() => {}} disable={true}/>
         }
         return null
     }
