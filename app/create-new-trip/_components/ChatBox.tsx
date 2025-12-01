@@ -6,7 +6,7 @@ import { Loader, Send } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import EmptyBoxState from './EmptyBoxState'
 import GroupSizeUi from './GroupSizeUI'
-import BudgetUi from './BudgetUI'
+import BudgetUi from './BudgetUi'
 import SelectDays from './SelectDays'
 import FinalUi from './FinalUi'
 
