@@ -24,7 +24,9 @@ export default function RootLayout({
           className={outfit.className}
         >
           <ConvexClientProvider>
-            {children}
+            <Provider>
+              {children}
+            </Provider>
           </ConvexClientProvider>
           
         </body>

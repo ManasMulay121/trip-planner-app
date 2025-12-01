@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { ArrowDown, Globe2, Landmark, Plane, Send } from 'lucide-react'
 import { HeroVideoDialog } from "@/components/ui/hero-video-dialog"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 
@@ -30,6 +30,12 @@ function Hero() {
 
     const {user} = useUser();
     const router = useRouter();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     const onSend = () => {
         if (!user) {    // user not-signed in but made a create trip request
             router.push('/sign-in');
@@ -39,8 +45,12 @@ function Hero() {
         router.push('/create-new-trip')
     }
 
+    if (!isMounted) {
+        return null;
+    }
+
   return (
-    <div className='mt-24 flex items-center justify-center'>
+    <div className='mt-24 flex items-center justify-center' suppressHydrationWarning>
         {/* content */}
         <div className='max-w-3xl w-full text-center space-y-6 '>
             <h1 className='text-xl md:text-5xl font-bold'>Hey, I'm your personal <span className='text-primary'> Trip Planner</span> </h1>

@@ -22,9 +22,9 @@ export const CreateNewUser=mutation({
 
             // if not then create new user
             const result=await ctx.db.insert('UserTable', userData);
-            return userData;
+            return result;
         }
 
-        return user[0];
+        return user[0]._id;
     }
 })
