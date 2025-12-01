@@ -7,7 +7,7 @@ import { Activity } from "./ChatBox";
 export default function PlaceCardItem({ activity }: { activity: Activity}) {
     return (
         <div>
-                                <Image src={'/placeholder.jpg'} alt={activity.place_name} width={400} height={200}
+                                <Image src={activity?.place_image_url || '/placeholder.jpg'} alt={activity.place_name} width={400} height={200}
                                 className="object-cover rounded-xl"/>
                                 <h2 className="font-semibold text-lg">{activity?.place_name}</h2>
                                 <p className="text-gray-500 line-clamp-2">{activity?.place_details}</p>

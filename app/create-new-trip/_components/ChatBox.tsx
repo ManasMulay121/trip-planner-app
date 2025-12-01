@@ -29,7 +29,7 @@ export type TripInfo={
     group_size:string,
     origin:string,
     hotels:Hotel[],
-    itinerary:Iternary
+    itinerary:Itinerary[]
 }
 
 export type Hotel={
@@ -59,7 +59,7 @@ export type Activity={
     best_time_to_visit:string;
 }
 
-type Iternary={
+type Itinerary={
     day:number,
     day_plan:string,
     best_time_to_visit_day:string,
@@ -78,13 +78,14 @@ export default function ChatBox() {
     const tripDetailContext = useTripDetail();
     const tripDetailInfo = tripDetailContext?.tripDetailInfo;
     const setTripDetailInfo = tripDetailContext?.setTripDetailInfo;
-    const onSend = async() => {
-        if(!userInput?.trim()) return;
+    const onSend = async(input?: string) => {
+        const msgContent = input ?? userInput;
+        if(!msgContent?.trim()) return;
         setLoading(true);
         setUserInput('');
         const newMsg:Message={
             role:'user',
-            content:userInput ?? ''
+            content:msgContent
         }
 
         setMessages((prev:Message[])=>[...prev,newMsg]);
@@ -136,11 +137,11 @@ export default function ChatBox() {
     const RenderGenerativeUi=(ui:string)=>{
         if(ui=='budget') 
         {
-            return <BudgetUi onSelectedOption={(v:string)=>{setUserInput(v); onSend()}}/>
+            return <BudgetUi onSelectedOption={(v:string)=>{setUserInput(v); onSend(v)}}/>
         } else if(ui=='groupSize') {
-            return <GroupSizeUi onSelectedOption={(v:string)=>{setUserInput(v); onSend()}}/>
+            return <GroupSizeUi onSelectedOption={(v:string)=>{setUserInput(v); onSend(v)}}/>
         } else if(ui=='tripDuration') {
-            return <SelectDays onSelectedOption={(v:string)=>{setUserInput(v); onSend()}}/>
+            return <SelectDays onSelectedOption={(v:string)=>{setUserInput(v); onSend(v)}}/>
         } else if(ui=='final') {
             return <FinalUi viewTrip={() => console.log} disable={!tripDetail}/>
         }
@@ -163,7 +164,7 @@ export default function ChatBox() {
     return (
         <div className='h-[85vh] flex flex-col border shadow rounded-2xl p-5'>
             {messages?.length==0 &&
-                <EmptyBoxState onSelectOption={(v:string)=>{setUserInput(v); onSend()}}/>
+                <EmptyBoxState onSelectOption={(v:string)=>{setUserInput(v); onSend(v)}}/>
             }
             <section className='flex-1 overflow-y-auto p-4'>
                 {messages.map((msg:Message,index)=>(

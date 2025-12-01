@@ -27,19 +27,19 @@ function Iternary() {
       content: (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {tripData.hotels.map((hotel, index) => (
-            <HotelCardItem hotel={hotel} />
+            <HotelCardItem key={index} hotel={hotel} />
         ))}
         </div>
       ),
     },
-    ...[tripData.itinerary].map((dayData) => ({
+    ...tripData.itinerary.map((dayData) => ({
         title: `Day ${dayData?.day}`,
         content: (
             <div>
                 <p>Best time: {dayData.best_time_to_visit_day}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {dayData.activities.map((activity, index) => (
-                    <PlaceCardItem activity={activity} />
+                    <PlaceCardItem key={index} activity={activity} />
                 ))}
                 </div>
             </div>
@@ -51,6 +51,7 @@ function Iternary() {
   return (
     <div className="relative w-full min-h-screen h-[83vh] overflow-auto" suppressHydrationWarning>
       {isMounted && tripData && <Timeline data={data} tripData={tripData} />}
+
     </div>
   );
 }
