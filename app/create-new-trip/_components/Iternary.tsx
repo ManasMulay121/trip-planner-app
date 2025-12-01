@@ -21,30 +21,30 @@ function Iternary() {
         useEffect(()=>{
             tripDetailInfo && setTripData(tripDetailInfo);
         },[tripDetailInfo])
-    const data = tripData?[
+    const data = tripData && tripData.hotels && tripData.itinerary ? [
     {
       title: "Recommended Hotels",
       content: (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {tripData.hotels.map((hotel, index) => (
-            <HotelCardItem hotel={hotel} />
+          {tripData.hotels?.map((hotel, index) => (
+            <HotelCardItem key={index} hotel={hotel} />
         ))}
         </div>
       ),
     },
-    ...[tripData.itinerary].map((dayData) => ({
+    ...tripData.itinerary?.map((dayData) => ({
         title: `Day ${dayData?.day}`,
         content: (
             <div>
-                <p>Best time: {dayData.best_time_to_visit_day}</p>
+                <p>Best time: {dayData?.best_time_to_visit_day}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {dayData.activities.map((activity, index) => (
-                    <PlaceCardItem activity={activity} />
+                {dayData?.activities?.map((activity, index) => (
+                    <PlaceCardItem key={index} activity={activity} />
                 ))}
                 </div>
             </div>
         )
-    }))
+    })) || []
   ]:[];
   const [isMounted, setIsMounted] = useState(true);
 

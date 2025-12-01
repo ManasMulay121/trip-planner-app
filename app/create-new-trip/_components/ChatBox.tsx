@@ -29,7 +29,7 @@ export type TripInfo={
     group_size:string,
     origin:string,
     hotels:Hotel[],
-    itinerary:Iternary
+    itinerary:Iternary[]
 }
 
 export type Hotel={
