@@ -1,8 +1,9 @@
 "use client"
 import { Button } from '@/components/ui/button'
-import { SignInButton, useUser } from '@clerk/nextjs'
+import { SignInButton, UserButton, useUser } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 
 const menuOptions = [
@@ -23,6 +24,9 @@ const menuOptions = [
 function Header() {
 
   const {user} = useUser();
+  const path = usePathname();
+  console.log(path)
+
 
 
   return (
@@ -41,15 +45,21 @@ function Header() {
           ))}
         </div>
 
+      <div className='flex gap-5 items-center'>
         { !user ? 
             <SignInButton mode='modal'>
               <Button>Get Started</Button>
             </SignInButton> : 
-
+            path == '/create-new-trip' ? 
+            <Link href={'/my-trips'}>
+              <Button>My Trips</Button>
+            </Link> : 
             <Link href={'/create-new-trip'}>
               <Button>Create New trip</Button>
             </Link>
         } 
+        <UserButton />
+      </div>
     </div>
   )
 }
