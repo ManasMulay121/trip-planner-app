@@ -51,6 +51,7 @@ function Iternary() {
   return (
     <div className="relative w-full min-h-screen h-[83vh] overflow-auto" suppressHydrationWarning>
       {isMounted && tripData && <Timeline data={data} tripData={tripData} />}
+
     </div>
   );
 }

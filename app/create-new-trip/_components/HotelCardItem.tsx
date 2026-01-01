@@ -19,7 +19,7 @@ function HotelCardItem({ hotel }: { hotel: Hotel }) {
     }
     return (
         <div className="flex flex-col gap-1">
-                <Image src={'/placeholder.jpg'} alt='place-image' width={400} height={200}
+                <Image src={hotel?.hotel_image_url || '/placeholder.jpg'} alt='place-image' width={400} height={200}
                 className="rounded-xl shadow object-cover mb-2" />
                 <h2 className="font-semibold text-lg">{hotel?.hotel_name}</h2>
                 <h2 className="text-gray-500">{hotel?.hotel_address}</h2>
