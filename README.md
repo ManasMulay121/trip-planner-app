@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🗺️ AI Trip Planner
 
-## Getting Started
+An intelligent, AI-powered trip planning application that creates personalized travel itineraries through conversational AI interactions.
 
-First, run the development server:
+## Project Info
 
-```bash
+**Features:**
+- 🤖 Conversational AI Trip Planning - Chat with an AI assistant that guides you through planning your perfect trip
+- 🏨 Hotel Recommendations - AI-curated hotel suggestions with pricing, ratings, and locations
+- 📍 Day-by-Day Itineraries - Detailed daily plans with activities, ticket pricing, and best times to visit
+- 🔐 User Authentication - Secure sign-in with Clerk
+- 💾 Trip Persistence - Save your trip plans with Convex real-time database
+
+## How can I edit this code?
+
+There are several ways of editing your application.
+
+**Use your preferred IDE**
+
+If you want to work locally using your own IDE, you can clone this repo and push changes.
+
+The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+
+Follow these steps:
+
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
+
+# Step 2: Navigate to the project directory.
+cd trip-planner-app
+
+# Step 3: Install the necessary dependencies.
+npm i
+
+# Step 4: Set up environment variables (create .env.local file)
+# OPENROUTER_API_KEY=your_openrouter_api_key
+# NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
+# CLERK_SECRET_KEY=your_clerk_secret
+# CONVEX_DEPLOYMENT=your_convex_deployment
+# NEXT_PUBLIC_CONVEX_URL=your_convex_url
+# GOOGLE_PLACES_API_KEY=your_google_api_key
+# ARCJET_KEY=your_arcjet_key
+
+# Step 5: Start the development server with auto-reloading and an instant preview.
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Edit a file directly in GitHub**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Use GitHub Codespaces**
 
-## Learn More
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-To learn more about Next.js, take a look at the following resources:
+## What technologies are used for this project?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is built with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Next.js 15 (App Router)
+- TypeScript
+- React 19
+- Tailwind CSS
+- Clerk (Authentication)
+- Convex (Real-time Database)
+- OpenRouter API (AI/LLM)
+- Arcjet (API Security)
+- Google Places API
+- Radix UI Components
+- Motion (Animations)
 
-## Deploy on Vercel
+## How can I deploy this project?
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy this Next.js app is to use the [Vercel Platform](https://vercel.com/new).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push your code to a GitHub repository
+2. Import the project into Vercel
+3. Add your environment variables in the Vercel dashboard
+4. Deploy!
+
+Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
